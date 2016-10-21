@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>Hello React</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+  
+  </head>
+  <body>
+    <div id="container"></div>
+    <script type="text/babel">
+	var Hello = React.createClass({
+	  count: 0,
+	  getInitialState: function() {
+	    return {
+	      "lists": ['A', 'B', 'C'],
+	      "input": 'Val-'+this.count,
+	    };
+	  },
+	  append: function() {
+	    this.state.lists.push(this.refs.input.value);
+	    this.stateSet();
+	  },
+	  unshift: function() {
+	    this.state.lists.unshift(this.refs.input.value);
+	    this.stateSet();
+	  },
+	  stateSet: function() {
+	    this.setState({"lists":this.state.lists});
+	    this.count++;
+	    this.setState({"input":'Val-'+this.count});
+	  },
+	  forceSet: function() {
+	    this.setState({"lists":['A', 'B1', 'C', 'D']});
+	  },
+	  rerender: function() {
+	    ReactDOM.render(
+	      <Hello param="New" flag="-Flag" />,
+	      document.getElementById('container')
+	    );
+	  },
+	  render: function() {
+	    return (
+	      <div id="form">
+	        <input type='text' ref="input" value={this.state.input} />
+	        <button onClick={this.append}>Append</button>
+	        <button onClick={this.unshift}>Unshift</button>
+	        <p>
+	          <button onClick={this.rerender}>ReRender</button>
+	          <button onClick={this.forceSet}>ForceSet</button>
+	        </p>
+	        {this.props.param}
+	        {this.state.lists.map(function(value, key) {
+	          return(
+	            <li key={key}>{key}: {value}{this.props.flag}</li>
+	          );
+	        }.bind(this))}
+	      </div>
+	    );
+	  }
+	});
+
+	ReactDOM.render(
+	  <Hello param="Origin" />,
+	  document.getElementById('container')
+	);
+
+    </script>
+  </body>
+</html>
