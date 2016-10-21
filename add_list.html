@@ -11,10 +11,13 @@
     <script type="text/babel">
 	var Hello = React.createClass({
 	  count: 0,
-		getInitialState: function() {
+	  varLists: function() { 
+	  	return ['A', 'B', 'C']
+	  },
+	  getInitialState: function() {
 	  	return {
-	    	"lists": ['A', 'B', 'C'],
-	      "input": 'Val-'+this.count,
+	    	"lists": this.varLists(),
+	      	"input": 'Val-'+this.count,
 	    };
 	  },
 	  append: function() {
@@ -33,6 +36,13 @@
 	  forceSet: function() {
 	  	this.setState({"lists":['A', 'B1', 'C', 'D']});
 	  },
+	  reset: function() {
+	  	this.setState({"lists":this.varLists()});
+	  	ReactDOM.render(
+	      <Hello param="Reset" />,
+	      document.getElementById('container')
+	    );
+	  },
 	  addFlag: function() {
 	  	ReactDOM.render(
 	      <Hello param="New" flag="-Flag" />,
@@ -46,6 +56,7 @@
 	        <button onClick={this.append}>Append</button>
 	        <button onClick={this.unshift}>Unshift</button>
 	        <p>
+	        	<button onClick={this.reset}>Reset</button>
 	        	<button onClick={this.addFlag}>AddFlag</button>
 	        	<button onClick={this.forceSet}>ForceSet</button>
 	        </p>
