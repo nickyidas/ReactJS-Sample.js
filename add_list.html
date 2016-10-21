@@ -11,9 +11,9 @@
     <script type="text/babel">
 	var Hello = React.createClass({
 	  count: 0,
-	  getInitialState: function() {
-	    return {
-	      "lists": ['A', 'B', 'C'],
+		getInitialState: function() {
+	  	return {
+	    	"lists": ['A', 'B', 'C'],
 	      "input": 'Val-'+this.count,
 	    };
 	  },
@@ -26,33 +26,33 @@
 	    this.stateSet();
 	  },
 	  stateSet: function() {
-	    this.setState({"lists":this.state.lists});
+	  	this.setState({"lists":this.state.lists});
 	    this.count++;
 	    this.setState({"input":'Val-'+this.count});
 	  },
 	  forceSet: function() {
-	    this.setState({"lists":['A', 'B1', 'C', 'D']});
+	  	this.setState({"lists":['A', 'B1', 'C', 'D']});
 	  },
-	  rerender: function() {
-	    ReactDOM.render(
+	  addFlag: function() {
+	  	ReactDOM.render(
 	      <Hello param="New" flag="-Flag" />,
 	      document.getElementById('container')
 	    );
 	  },
 	  render: function() {
 	    return (
-	      <div id="form">
-	        <input type='text' ref="input" value={this.state.input} />
+	    	<div id="form">
+	    		<input type='text' ref="input" value={this.state.input} />
 	        <button onClick={this.append}>Append</button>
 	        <button onClick={this.unshift}>Unshift</button>
 	        <p>
-	          <button onClick={this.rerender}>ReRender</button>
-	          <button onClick={this.forceSet}>ForceSet</button>
+	        	<button onClick={this.addFlag}>AddFlag</button>
+	        	<button onClick={this.forceSet}>ForceSet</button>
 	        </p>
 	        {this.props.param}
-	        {this.state.lists.map(function(value, key) {
-	          return(
-	            <li key={key}>{key}: {value}{this.props.flag}</li>
+	    		{this.state.lists.map(function(value, key) {
+	        	return(
+	          	<li key={key}>{key}: {value}{this.props.flag}</li>
 	          );
 	        }.bind(this))}
 	      </div>
